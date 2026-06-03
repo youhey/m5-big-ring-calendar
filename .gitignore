@@ -1,0 +1,11 @@
+# Local secret settings
+secrets.h
+
+# Arduino build/cache files
+build/
+*.bin
+*.elf
+*.map
+*.hex
+
+.DS_Store
