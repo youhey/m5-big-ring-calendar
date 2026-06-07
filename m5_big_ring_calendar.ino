@@ -55,6 +55,7 @@ static constexpr uint16_t COLOR_DIM       = TFT_DARKGREY;
 static constexpr uint16_t COLOR_SUB       = 0x8410;  // middle gray
 static constexpr uint16_t COLOR_RING_BASE = 0x2104;  // very dark gray
 static constexpr uint16_t COLOR_PANEL     = 0x18E3;  // dark panel gray
+static constexpr uint16_t COLOR_AUTO      = TFT_BLACK;
 
 // Weekday colors
 static constexpr uint16_t COLOR_WEEKDAY = 0x07E0; // green
@@ -1079,6 +1080,16 @@ void drawAquaPiMode() {
   }
 }
 
+void drawAutoBadge() {
+  const int x = 262;
+  const int y = 6;
+  const int w = 52;
+  const int h = 22;
+
+  M5.Display.fillRect(x, y, w, h, TFT_WHITE);
+  drawTextCenter("AUTO", x + w / 2, y + h / 2, 2, COLOR_AUTO, TFT_WHITE);
+}
+
 // ------------------------------------------------------------
 // Mode dispatcher
 // ------------------------------------------------------------
@@ -1123,6 +1134,10 @@ void drawCurrentMode(const struct tm& timeinfo) {
         drawDefaultMode(timeinfo);
         break;
     }
+  }
+
+  if (displayState.mode == DisplayMode::Auto) {
+    drawAutoBadge();
   }
 
   lastDrawnYear = timeinfo.tm_year + 1900;
